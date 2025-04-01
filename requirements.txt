@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+sqlalchemy~=2.0.39
+psycopg2-binary
+python-multipart
+pydantic[dotenv]
+dotenv~=0.9.9
+python-dotenv~=1.0.1
