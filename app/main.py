@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from .routers import posts, users
+from .routers import posts, users, sitemap
 from .database import Base, engine
 from .models import Post  # Make sure this line exists to register the model
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,7 +18,7 @@ app.add_middleware(
 
 app.include_router(posts.router)
 app.include_router(users.router)
-
+app.include_router(sitemap.router)
 @app.get("/")
 def root():
     return {"message": "Welcome to Tech Tutorials + Toolkits Hub!"}

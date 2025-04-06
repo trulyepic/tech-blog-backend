@@ -2,6 +2,12 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
+class UserPublic(BaseModel):
+    id: int
+    username: str
+
+    class Config:
+        orm_mode = True
 
 class PostCreate(BaseModel):
     title: str
@@ -14,6 +20,7 @@ class PostOut(PostCreate):
     id: int
     created_at: datetime
     updated_at: datetime
+    user: UserPublic
 
     class Config:
         orm_mode = True
@@ -35,3 +42,5 @@ class UserOut(BaseModel):
 
     class Config:
         orm_mode = True
+
+

@@ -24,7 +24,8 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
     db_user = crud.authenticate_user(db, user.email, user.password)
     if not db_user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    token = create_access_token(data={"sub": db_user.id})
+    # token = create_access_token(data={"sub": db_user.id})
+    token = create_access_token(data={"sub": str(db_user.id)})
     return {
         "access_token": token,
         "token_type": "bearer",
