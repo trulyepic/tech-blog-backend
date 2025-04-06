@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from .routers import posts, users, sitemap
-from .database import Base, engine
-from .models import Post  # Make sure this line exists to register the model
+from app.routers import posts, users, sitemap
+from app.database import Base, engine
+from app.models import Post  # Make sure this line exists to register the model
 from fastapi.middleware.cors import CORSMiddleware
 
 Base.metadata.create_all(bind=engine)
