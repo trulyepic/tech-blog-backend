@@ -8,6 +8,10 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+# Safety check
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL environment variable is not set.")
+
 
 print("DATABASE_URL →", DATABASE_URL)
 
