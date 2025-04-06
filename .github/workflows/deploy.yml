@@ -11,7 +11,7 @@ jobs:
 
     env:
       AWS_REGION: us-west-1
-      S3_BUCKET_NAME: your-s3-bucket-name
+      S3_BUCKET_NAME: code-sprig-bucket
       EB_APP_NAME: code-sprig
       EB_ENV_NAME: Code-sprig-env
       ZIP_FILE: deploy-${{ github.sha }}.zip
