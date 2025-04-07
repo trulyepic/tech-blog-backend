@@ -8,9 +8,15 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Tech Tutorials + Toolkits Hub")
 
+origins = [
+    "http://localhost:5173",          # Vite dev server
+    "https://www.codesprig.com",      # Your production frontend
+    "https://codesprig.com",          # Non-www version, just in case
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
