@@ -77,3 +77,7 @@ def authenticate_user(db: Session, email: str, password: str):
     if not user or not verify_password(password, user.password_hash):
         return None
     return user
+
+def count_posts(db: Session):
+    return db.query(models.Post).count()
+

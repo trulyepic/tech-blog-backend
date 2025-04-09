@@ -43,4 +43,8 @@ class UserOut(BaseModel):
     class Config:
         orm_mode = True
 
+class PaginatedPosts(BaseModel):
+    total: int
+    posts: list[PostOut]
+
 
