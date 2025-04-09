@@ -1,3 +1,5 @@
+from fastapi import Query
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import SessionLocal
@@ -20,9 +22,16 @@ def create(post: schemas.PostCreate, db: Session = Depends(get_db), current_user
     return crud.create_post(db, post, user_id=current_user.id)
 
 
-@router.get("/", response_model=list[schemas.PostOut])
-def list_posts(db: Session = Depends(get_db)):
-    return crud.get_posts(db)
+@router.get("/", response_model=schemas.PaginatedPosts)
+def list_posts(
+    db: Session = Depends(get_db),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(9, ge=1, le=50)
+):
+    skip = (page - 1) * page_size
+    total = crud.count_posts(db)
+    posts = crud.get_posts(db, skip=skip, limit=page_size)
+    return {"total": total, "posts": posts}
 
 @router.get("/my", response_model=list[schemas.PostOut])
 def list_my_posts(db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
