@@ -20,8 +20,10 @@ async def sitemap_xml(db: Session = Depends(get_db)):
     base_url = "https://codesprig.com"
     posts = db.query(Post).all()
 
-    xml = ['<?xml version="1.0" encoding="UTF-8"?>', '<user xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-           f"<url><loc>{base_url}/</loc><priority>1.0</priority></url>"]
+    xml = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        f"<url><loc>{base_url}/</loc><priority>1.0</priority></url>"]
 
     # Homepage
 
@@ -38,13 +40,13 @@ async def sitemap_xml(db: Session = Depends(get_db)):
             f"<url><loc>{url}</loc><lastmod>{lastmod}</lastmod><priority>0.8</priority></url>"
         )
 
-    xml.append("</user>")
+    xml.append("</urlset>")
     return Response(content="\n".join(xml), media_type="application/xml")
 
 
 @router.get("/robots.txt", response_class=Response)
 async def robots_txt():
     return Response(
-        content="User-agent: *\nAllow: /\nSitemap: http://codesprig.com/sitemap.xml",
+        content="User-agent: *\nAllow: /\nSitemap: https://codesprig.com/sitemap.xml",
         media_type="text/plain"
     )
