@@ -26,7 +26,7 @@ def create(post: schemas.PostCreate, db: Session = Depends(get_db), current_user
 def list_posts(
     db: Session = Depends(get_db),
     page: int = Query(1, ge=1),
-    page_size: int = Query(9, ge=1, le=50)
+    page_size: int = Query(..., ge=1, le=50)
 ):
     skip = (page - 1) * page_size
     total = crud.count_posts(db)
