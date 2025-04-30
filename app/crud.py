@@ -15,6 +15,7 @@ def get_posts(db: Session, skip: int = 0, limit: int = 10):
     return (
         db.query(models.Post)
         .options(joinedload(models.Post.user))
+        .order_by(models.Post.created_at.desc())
         .offset(skip)
         .limit(limit)
         .all()
